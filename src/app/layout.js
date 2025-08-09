@@ -1,3 +1,4 @@
+import Providers from './providers';
 import './globals.css';
 
 export const metadata = {
@@ -9,6 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="min-h-screen bg-neutral-50 text-neutral-900 antialiased">
+        <Providers>
           <div className="max-w-5xl mx-auto">
             <header className="sticky top-0 z-10 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-neutral-200">
               <div className="max-w-5xl mx-auto px-4 py-3 flex items-center gap-3">
@@ -22,6 +24,7 @@ export default function RootLayout({ children }) {
             </header>
             <main className="px-4 py-6">{children}</main>
           </div>
+        </Providers>
       </body>
     </html>
   );
