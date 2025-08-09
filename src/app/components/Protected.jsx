@@ -1,22 +1,20 @@
 "use client";
-import { Provider } from "react-redux";
-import { useEffect, useRef } from "react";
-import { initStore } from "../store";
-import { rehydrated } from "../features/auth/authSlice";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function Providers({ children }) {
-  const storeRef = useRef();
-  if (!storeRef.current) storeRef.current = initStore();
+export default function Protected({ children, redirectTo = "/login" }) {
+  const user = useSelector((s) => s.auth.user);
+  const router = useRouter();
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch("/api/auth/session", { cache: "no-store" });
-        const data = await res.json();
-        if (data?.user) storeRef.current.dispatch(rehydrated(data.user));
-      } catch {}
-    })();
+    setReady(true);
   }, []);
+  useEffect(() => {
+    if (ready && !user) router.replace(redirectTo);
+  }, [ready, user, router, redirectTo]);
 
-  return <Provider store={storeRef.current}>{children}</Provider>;
+  if (!user) return null;
+  return children;
 }
