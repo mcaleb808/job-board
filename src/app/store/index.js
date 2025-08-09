@@ -5,4 +5,4 @@ export const initStore = () => {
   return configureStore({
     reducer: { auth },
   });
-}
+};
