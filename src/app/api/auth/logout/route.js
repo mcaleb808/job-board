@@ -1,12 +1,11 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { cookiesSetter } from "@/app/utils/handleCookies";
 
 export async function POST() {
   const res = NextResponse.json({ ok: true });
-  res.cookies.set("jb_session", "", {
-    httpOnly: true,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 0,
-  });
+  const cookieStore = await cookies();
+  // Clear the session cookie
+  cookiesSetter(cookieStore, { id: null, email: null });
   return res;
 }

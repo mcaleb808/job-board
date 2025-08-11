@@ -1,11 +1,12 @@
 "use client";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { fetchJobById, clearSelected } from "../../features/jobs/jobsSlice";
 
-export default function JobDetails({ params }) {
-  const { id } = params;
+export default function JobDetails() {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const { selected, status, error } = useSelector((s) => s.jobs);
 
