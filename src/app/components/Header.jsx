@@ -1,7 +1,8 @@
 "use client";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { authLogout } from "@/app/features/auth/authSlice";
 import Link from "next/link";
+import { authLogout } from "../features/auth/authSlice";
 
 export default function Header() {
   const user = useSelector((s) => s.auth.user);

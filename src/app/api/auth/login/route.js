@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { cookiesSetter } from "@/app/utils/handleCookies";
+import { cookiesSetter } from "../../../utils/handleCookies";
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 
