@@ -1,6 +1,6 @@
 "use client";
 import { useDispatch } from "react-redux";
-import { loggedIn } from "@/app/features/auth/authSlice";
+import { authLogin } from "@/app/features/auth/authSlice";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -10,11 +10,10 @@ export default function LoginPage() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
-    // Mock login for now
-    dispatch(loggedIn({ id: "u1", email }));
-    router.push("/jobs");
+    const res = await dispatch(authLogin({ email, password }));
+    if (res.meta.requestStatus === "fulfilled") router.push("/jobs");
   }
 
   return (

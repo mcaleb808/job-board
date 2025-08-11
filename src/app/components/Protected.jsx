@@ -9,8 +9,14 @@ export default function Protected({ children, redirectTo = "/login" }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setReady(true);
+    // Simulate a delay to mimic fetching user data
+    const timer = setTimeout(() => {
+      setReady(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
+
   useEffect(() => {
     if (ready && !user) router.replace(redirectTo);
   }, [ready, user, router, redirectTo]);

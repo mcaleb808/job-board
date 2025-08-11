@@ -13,8 +13,10 @@ export default function Providers({ children }) {
       try {
         const res = await fetch("/api/auth/session", { cache: "no-store" });
         const data = await res.json();
-        if (data?.user) storeRef.current.dispatch(rehydrated(data.user));
-      } catch {}
+        if (data?.email) storeRef.current.dispatch(rehydrated(data || {}));
+      } catch (e) {
+        console.error("Failed to rehydrate user data");
+      }
     })();
   }, []);
 

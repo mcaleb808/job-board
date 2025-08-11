@@ -1,4 +1,6 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { cookiesSetter } from "@/app/utils/handleCookies";
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -11,12 +13,13 @@ export async function POST(request) {
       { status: 401 }
     );
   }
-  const res = NextResponse.json({ id: "u1", email });
-  res.cookies.set("jb_session", JSON.stringify({ id: "u1", email }), {
-    httpOnly: true,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24, // 1 day
-  });
+  const data = {
+    id: "u1",
+    email,
+  };
+  const res = NextResponse.json(data);
+
+  const cookieStore = await cookies();
+  cookiesSetter(cookieStore, data);
   return res;
 }
