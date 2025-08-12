@@ -1,4 +1,5 @@
 import JobBoard from "./jobs/page";
+
 export default function Home(properties) {
   return (
     <section className="grid gap-4">
