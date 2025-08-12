@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[![CI](https://github.com/mcaleb808/job-board/actions/workflows/ci.yml/badge.svg)](https://github.com/mcaleb808/job-board/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/mcaleb808/job-board/branch/main/graph/badge.svg)](https://codecov.io/gh/mcaleb808/job-board)
+[![Maintainability](https://qlty.sh/gh/mcaleb808/projects/job-board/maintainability.svg)](https://qlty.sh/gh/mcaleb808/projects/job-board)
 
 ## Getting Started
 
