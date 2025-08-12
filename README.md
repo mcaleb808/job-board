@@ -1,38 +1,102 @@
+# Job Board (Next.js + Redux Toolkit)
 [![CI](https://github.com/mcaleb808/job-board/actions/workflows/ci.yml/badge.svg)](https://github.com/mcaleb808/job-board/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/mcaleb808/job-board/branch/main/graph/badge.svg)](https://codecov.io/gh/mcaleb808/job-board)
 [![Maintainability](https://qlty.sh/gh/mcaleb808/projects/job-board/maintainability.svg)](https://qlty.sh/gh/mcaleb808/projects/job-board)
 
-## Getting Started
+A job board built with **Next.js App Router** and **Redux Toolkit**. Mock APIs use **Route Handlers** with cookie auth. Tests run on **Vitest + RTL**. API docs at **/docs**.
 
-First, run the development server:
+---
 
+## Demo
+- **Live**: https://job-board-eight-navy.vercel.app
+- **Swagger Docs**: https://job-board-eight-navy.vercel.app/docs
+
+---
+
+## Quick Start
 ```bash
+# 1) Install deps
+npm ci
+
+# 2) Dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# → http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Stack
+- Next.js (App Router)
+- Redux Toolkit (slices + thunks)
+- Route Handlers (mock API)
+- react-hook-form + zod
+- Vitest + React Testing Library
+- OpenAPI + Swagger UI (CDN)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Features
+- Auth (mock): login/register, cookie session (`jb_id`, `jb_user`)
+- Jobs list: search, filter, pagination
+- Job details + **Apply** form (validation)
+- **/applications** (protected) with loading/error/empty states
+- API docs at `/docs` (spec at `/api/openapi`)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
+```json
+{
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "test": "vitest",
+  "test:run": "vitest run",
+  "test:watch": "vitest --watch"
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## API (mock)
+- `GET /api/jobs` — list (q, type, page, pageSize)
+- `GET /api/jobs/:id` — details
+- `POST /api/applications` — create (auth)
+- `GET /api/applications/me` — mine (auth)
+- `POST /api/auth/login | /register | /logout`
+- `GET /api/openapi` — OpenAPI JSON
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Layout
+```
+app/
+  api/...            # route handlers
+  docs/route.js      # swagger ui
+  jobs/, applications/, layout.js, page.js
+features/            # redux slices
+lib/openapi.js       # spec
+store/index.js
+```
+
+---
+
+## CI & Coverage
+- GitHub Actions at `.github/workflows/ci.yml`
+- Coverage (lcov) uploaded to Codecov (optional) and Qlty Cloud (PR gate)
+
+---
+
+## Architecture Notes
+- **App shell:** Next.js App Router. `layout.js` wraps pages with `Providers` (Redux store) and `Header`.
+- **State:** Redux Toolkit slices — `auth`, `jobs`, `applications`. Async thunks handle API calls; slice state encodes `status` and `error` for clean UI states.
+- **Data flow:** Pages/components dispatch thunks on mount/interaction. Route Handlers read/write cookies with `await cookies()`; UI reacts via Redux.
+- **Auth:** Mock login/register/logout set `jb_id` + `jb_user`. `Protected` gates pages; `layout` pings `/api/auth/session` once to rehydrate on load.
+- **API layer:** Route Handlers only (no external server). OpenAPI in `lib/openapi.js`; Swagger UI at `/docs` (CDN bundle).
+- **Testing:** Vitest + RTL with Next mocks (`next/navigation`, `next/headers`). Route handlers tested by invoking exported `GET/POST` with `Request`.
+
+---
+
+## License
+
+MIT
