@@ -1,3 +1,4 @@
+import React from "react";
 import JobBoard from "./jobs/page";
 
 export default function Home(properties) {

@@ -1,8 +1,8 @@
 "use client";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchMyApplications } from "@/app/features/applications/applicationsSlice";
-import Protected from "@/app/components/Protected";
+import { fetchMyApplications } from "../features/applications/applicationsSlice";
+import Protected from "../components/Protected";
 
 export default function MyApplicationsPage() {
   const dispatch = useDispatch();

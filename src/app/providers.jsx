@@ -1,6 +1,6 @@
 "use client";
+import React, { useEffect, useRef } from "react";
 import { Provider } from "react-redux";
-import { useEffect, useRef } from "react";
 import { initStore } from "./store";
 import { rehydrated } from "./features/auth/authSlice";
 
