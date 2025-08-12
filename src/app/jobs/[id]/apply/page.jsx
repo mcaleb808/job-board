@@ -1,12 +1,13 @@
 "use client";
 
+import React from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
-import Protected from "@/app/components/Protected";
-import { submitApplication } from "@/app/features/applications/applicationsSlice";
+import Protected from "../../../components/Protected";
+import { submitApplication } from "../../../features/applications/applicationsSlice";
 
 const schema = z.object({
   fullName: z.string().min(2, "Enter your full name"),

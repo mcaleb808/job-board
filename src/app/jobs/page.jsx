@@ -1,6 +1,6 @@
 "use client";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 
 import { fetchJobs } from "../features/jobs/jobsSlice";
 import JobFilters from "../components/JobFilters";
