@@ -1,4 +1,4 @@
-import { listJobs } from "@/lib/jobsData";
+import { listJobs } from "../../../lib/jobsData";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);

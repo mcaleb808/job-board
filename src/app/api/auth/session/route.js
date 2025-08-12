@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { cookiesGetter, cookiesSetter } from "@/app/utils/handleCookies";
+import {
+  cookiesGetter,
+  cookiesSetter,
+} from "../../../../app/utils/handleCookies";
 
 export async function GET() {
   const cookieStore = await cookies();

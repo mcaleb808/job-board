@@ -1,4 +1,4 @@
-import { getJob } from "@/lib/jobsData";
+import { getJob } from "../../../../lib/jobsData";
 
 export async function GET(_request, { params }) {
   const job = getJob(params.id);

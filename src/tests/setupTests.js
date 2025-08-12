@@ -8,8 +8,16 @@ afterEach(() => {
 });
 
 vi.mock("next/navigation", () => {
+  const routerMock = {
+    push: vi.fn(),
+    replace: vi.fn(),
+    back: vi.fn(),
+    prefetch: vi.fn(),
+    refresh: vi.fn(),
+    forward: vi.fn(),
+  };
   return {
-    useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn() }),
+    useRouter: () => routerMock,
     useSearchParams: () => new URLSearchParams(""),
     usePathname: () => "/tests",
     useParams: () => ({ id: "1" }),
